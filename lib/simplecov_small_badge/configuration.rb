@@ -9,6 +9,7 @@ module SimpleCovSmallBadge
     def self.options
       {
         with_groups: false,
+        only_generate_total: false,
         background: '#fff',
         title_prefix: 'scov',
         title_background: '#555',

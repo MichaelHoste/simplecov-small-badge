@@ -13,10 +13,15 @@ module SimpleCovSmallBadge
 
     def format(result)
       percent = result.source_files.covered_percent.round(0)
-      @image = RepoSmallBadge::Image.new(map_image_config(state(percent)))
-      badge('total', 'total', percent)
-      group_percent_from_result(result) do |name, title, cov_percent|
-        badge(name, title, cov_percent.round(0))
+      @image  = RepoSmallBadge::Image.new(map_image_config(state(percent)))
+      title   = @config.only_generate_total ? 'coverage' : 'total'
+
+      badge('total', title, percent)
+
+      if !@config.only_generate_total
+        group_percent_from_result(result) do |name, title, cov_percent|
+          badge(name, title, cov_percent.round(0))
+        end
       end
     end
 
